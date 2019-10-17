@@ -1,0 +1,16 @@
+[
+{
+  "modid": "tinyTrains",
+  "name": "Tiny Trains",
+  "description": "Tiny Trains is a mod that add model trains to minecraft.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Stel312"],
+  "credits": "The Forge and FML guys, for forge and fml",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

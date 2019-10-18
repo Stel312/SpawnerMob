@@ -1,18 +1,16 @@
 package com.Stel.SpawnerMob.common.core.proxy;
 
+import com.Stel.SpawnerMob.SpawnerMob;
 import com.Stel.SpawnerMob.common.Entity.Mobs.EntitySpawnerMob;
-import com.Stel.SpawnerMob.common.core.helper.EntityHelper;
+import com.Stel.SpawnerMob.common.lib.Reference;
 import com.Stel.SpawnerMob.common.lib.Strings;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Biomes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeSavanna;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class CommonProxy
 {
@@ -24,13 +22,9 @@ public class CommonProxy
 
 
     public void init(FMLInitializationEvent event)
-    {
-        List<Biome> othersBiomes = new ArrayList<>();
-
-
-        EntityHelper.registerEntity(Strings.SpawnerMob, EntitySpawnerMob.class, 0xDACAB0, 0xC50033);
-
-        EntityRegistry.addSpawn(EntitySpawnerMob.class, 1, 1, 100, EnumCreatureType.CREATURE, Biomes.MESA);
+    {   int entityID = 0;
+        EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, Strings.SpawnerMob),  EntitySpawnerMob.class, Strings.SpawnerMob, entityID++, SpawnerMob.instance, 64, 3, true, 000000, 22222);
+        EntityRegistry.addSpawn(EntitySpawnerMob.class, 10, 10, 10, EnumCreatureType.CREATURE, (Biome) ForgeRegistries.BIOMES.getValuesCollection());
 
     }
 

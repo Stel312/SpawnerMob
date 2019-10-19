@@ -16,9 +16,9 @@ public class ClientProxy extends CommonProxy
 {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(EntitySpawnerMob.class,
-                (IRenderFactory) new RenderMob(Minecraft.getMinecraft().getRenderManager(),
-                        new ModelSpawnerMob(), 1, Strings.SpawnerMob));
+
+        RenderingRegistry.registerEntityRenderingHandler(EntitySpawnerMob.class, (IRenderFactory) new RenderMob
+                (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.SpawnerMob));
 
     }
 

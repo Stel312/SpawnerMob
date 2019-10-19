@@ -22,9 +22,7 @@ public class CommonProxy
 
 
     public void init(FMLInitializationEvent event)
-    {   int entityID = 0;
-        EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, Strings.SpawnerMob),  EntitySpawnerMob.class, Strings.SpawnerMob, entityID++, SpawnerMob.instance, 64, 3, true, 000000, 22222);
-        EntityRegistry.addSpawn(EntitySpawnerMob.class, 10, 10, 10, EnumCreatureType.CREATURE, (Biome) ForgeRegistries.BIOMES.getValuesCollection());
+    {
 
     }
 

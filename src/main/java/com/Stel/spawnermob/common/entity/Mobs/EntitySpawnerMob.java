@@ -104,6 +104,8 @@ public class EntitySpawnerMob extends EntityCreature {
     {
         super.readEntityFromNBT(compound);
         this.mobSpawnerBaseLogic.readFromNBT(compound);
+        String string = compound.getString("spawnerEntity");
+        res = new ResourceLocation(string);
 
     }
 
@@ -114,6 +116,7 @@ public class EntitySpawnerMob extends EntityCreature {
     {
         super.writeEntityToNBT(compound);
         this.mobSpawnerBaseLogic.writeToNBT(compound);
+        compound.setString("spawnerEntity", res.toString());
     }
 
 

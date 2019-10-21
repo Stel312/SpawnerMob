@@ -1,4 +1,4 @@
-package com.Stel.SpawnerMob.client.render;
+package com.Stel.spawnermob.client.render;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.Render;
@@ -25,7 +25,7 @@ public class RenderMob extends RenderLiving<EntityLiving> implements IRenderFact
         this.model = model;
         this.scale = scale;
         this.texturesSprite = staticTexture;
-        this.texture = new ResourceLocation("s:textures/mobs/" + staticTexture + ".png");
+        this.texture = new ResourceLocation("spawnermob:textures/mob/" + staticTexture + ".png");
     }
 
     @Nullable

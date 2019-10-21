@@ -1,8 +1,8 @@
-package com.Stel.SpawnerMob;
+package com.Stel.spawnermob;
 
-import com.Stel.SpawnerMob.common.Items.SpawnerMobTab;
-import com.Stel.SpawnerMob.common.core.proxy.CommonProxy;
-import com.Stel.SpawnerMob.common.lib.Reference;
+import com.Stel.spawnermob.common.Items.SpawnerMobTab;
+import com.Stel.spawnermob.common.core.proxy.CommonProxy;
+import com.Stel.spawnermob.common.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -10,8 +10,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
-
-import java.sql.Ref;
 
 @Mod(modid = SpawnerMob.MODID, name = SpawnerMob.NAME, version = SpawnerMob.VERSION)
 public class SpawnerMob

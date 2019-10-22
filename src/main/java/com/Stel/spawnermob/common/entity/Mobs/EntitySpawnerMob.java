@@ -1,4 +1,4 @@
-package com.Stel.spawnermob.common.Entity.Mobs;
+package com.Stel.spawnermob.common.entity.Mobs;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -38,7 +38,10 @@ public class EntitySpawnerMob extends EntityCreature {
             return worldIn;
         }
         @Override
-        public BlockPos getSpawnerPosition() { return blockPos; }
+        public BlockPos getSpawnerPosition() {
+            blockPos = EntitySpawnerMob.this.getPosition();
+            return blockPos;
+        }
         public net.minecraft.entity.Entity getSpawnerEntity() {
             return EntitySpawnerMob.this;
         }
@@ -46,6 +49,7 @@ public class EntitySpawnerMob extends EntityCreature {
 
     public EntitySpawnerMob(World worldIn) {
         super(worldIn);
+        this.worldIn = worldIn;
         this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(1, new EntityAISwimming(this));
     }
@@ -63,7 +67,11 @@ public class EntitySpawnerMob extends EntityCreature {
     protected boolean canDespawn() {
         return canDespawn;
     }
-
+    protected void initEntityAI()
+    {
+        this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(1, new EntityAISwimming(this));
+    }
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
@@ -71,10 +79,17 @@ public class EntitySpawnerMob extends EntityCreature {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
+    /**
+     *  if a user right clicks an entity
+     * @param player
+     * @param hand
+     * @return
+     */
     @Override
     protected boolean processInteract(EntityPlayer player, EnumHand hand) {
         if(!player.isSneaking()) {
-            System.out.println(res.toString());
+            if(res != null)
+                System.out.println(res.toString());
             return true;
         }
         return false;
@@ -87,39 +102,57 @@ public class EntitySpawnerMob extends EntityCreature {
     }
 
     /**
-     * Called to update the entity's position/logic.
+     * Updates the entity position and logic
      */
-    public void onEntityUpdate()
-    {
+    @Override
+    public void onEntityUpdate() {
         super.onEntityUpdate();
-        if(this.mobSpawnerBaseLogic != null && blockPos !=null )
-                this.mobSpawnerBaseLogic.updateSpawner();
-        this.mobSpawnerBaseLogic.setEntityId(res);
+    }
+    /**
+     * updates the spawners logic
+     */
+
+    public void onUpdate()
+    {
+        super.onUpdate();
+        this.mobSpawnerBaseLogic.updateSpawner();
     }
 
     /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
+     * Retrieves the ResourceLocation in the nbt tags from when user opened game/server
+     * @param compound
      */
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
         this.mobSpawnerBaseLogic.readFromNBT(compound);
-        String string = compound.getString("spawnerEntity");
-        res = new ResourceLocation(string);
-
+        if(compound.hasKey("spawnerEntity"))
+        {
+            String string = compound.getString("spawnerEntity");
+            res = new ResourceLocation(string);
+            this.mobSpawnerBaseLogic.setEntityId(res);
+        }
     }
 
     /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
+     * Stored the ResourceLocation in the nbt tags for when user closes game/server
+     * @param compound
      */
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
         this.mobSpawnerBaseLogic.writeToNBT(compound);
+        if (res != null)
         compound.setString("spawnerEntity", res.toString());
     }
 
-
+    /**
+     * on the initial spawn of the entity the entity will get a random entity from a list of entities and will
+     * set it as the entity to spawn
+     * @param difficultyInstance
+     * @param entityLivingData
+     * @return
+     */
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficultyInstance, IEntityLivingData entityLivingData)
     {
         super.onInitialSpawn(difficultyInstance, entityLivingData);

@@ -1,4 +1,4 @@
-package com.Stel.spawnermob.common.Items;
+package com.stel.spawnermob.common.items;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;

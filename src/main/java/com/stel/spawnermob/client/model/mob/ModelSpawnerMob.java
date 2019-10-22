@@ -1,4 +1,4 @@
-package com.Stel.spawnermob.client.Model.Mob;
+package com.stel.spawnermob.client.model.mob;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

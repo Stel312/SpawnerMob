@@ -1,10 +1,10 @@
-package com.Stel.spawnermob.client.core.proxy;
+package com.stel.spawnermob.client.core.proxy;
 
-import com.Stel.spawnermob.client.Model.Mob.ModelSpawnerMob;
-import com.Stel.spawnermob.client.render.RenderMob;
-import com.Stel.spawnermob.common.core.proxy.CommonProxy;
-import com.Stel.spawnermob.common.entity.Mobs.EntitySpawnerMob;
-import com.Stel.spawnermob.common.lib.Strings;
+import com.stel.spawnermob.client.model.mob.ModelSpawnerMob;
+import com.stel.spawnermob.client.render.RenderMob;
+import com.stel.spawnermob.common.core.proxy.CommonProxy;
+import com.stel.spawnermob.common.entity.mobs.EntitySpawnerMob;
+import com.stel.spawnermob.common.lib.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;

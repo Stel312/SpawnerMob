@@ -1,7 +1,7 @@
-package com.Stel.spawnermob.common.core.events;
+package com.stel.spawnermob.common.core.events;
 
-import com.Stel.spawnermob.common.entity.Mobs.EntitySpawnerMob;
-import com.Stel.spawnermob.common.lib.Strings;
+import com.stel.spawnermob.common.entity.mobs.EntitySpawnerMob;
+import com.stel.spawnermob.common.lib.Strings;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;

@@ -1,8 +1,8 @@
-package com.Stel.spawnermob;
+package com.stel.spawnermob;
 
-import com.Stel.spawnermob.common.Items.SpawnerMobTab;
-import com.Stel.spawnermob.common.core.proxy.CommonProxy;
-import com.Stel.spawnermob.common.lib.Reference;
+import com.stel.spawnermob.common.items.SpawnerMobTab;
+import com.stel.spawnermob.common.core.proxy.CommonProxy;
+import com.stel.spawnermob.common.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = SpawnerMob.MODID, name = SpawnerMob.NAME, version = SpawnerMob.VERSION)
-public class SpawnerMob
+@Mod(modid = spawnermob.MODID, name = spawnermob.NAME, version = spawnermob.VERSION)
+public class spawnermob
 {
     public static final String MODID = Reference.MODID;
     public static final String NAME = Reference.MODNAME;
@@ -24,7 +24,7 @@ public class SpawnerMob
     public static CommonProxy proxy;
 
     @Mod.Instance
-    public static SpawnerMob instance;
+    public static spawnermob instance;
 
     public static SpawnerMobTab spawnerMobTab;
     @EventHandler

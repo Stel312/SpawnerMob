@@ -1,4 +1,4 @@
-package com.Stel.spawnermob.common.core.proxy;
+package com.stel.spawnermob.common.core.proxy;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

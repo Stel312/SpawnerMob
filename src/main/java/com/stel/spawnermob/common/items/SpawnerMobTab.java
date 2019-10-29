@@ -1,5 +1,6 @@
 package com.stel.spawnermob.common.items;
 
+import com.stel.spawnermob.common.blocks.ModBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,6 @@ public class SpawnerMobTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(Items.BANNER);
+        return new ItemStack(ModBlocks.ImprovedWitherSkull);
     }
 }

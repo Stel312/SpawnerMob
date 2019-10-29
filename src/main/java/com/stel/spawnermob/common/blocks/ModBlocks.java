@@ -21,7 +21,7 @@ public class ModBlocks {
 
         @SubscribeEvent
         public static void registerBlock(RegistryEvent.Register<Block> event) {
-            event.getRegistry().register(new BlockImprovedWitherSkull( "pickaxe", 0, 1f, 10f, Strings.SpawnerMobTab));
+            event.getRegistry().register(new BlockImprovedWitherSkull( "pickaxe", 0, 1f, 10f, Strings.BlockImprovedWitherSkull));
         }
 
         @SubscribeEvent

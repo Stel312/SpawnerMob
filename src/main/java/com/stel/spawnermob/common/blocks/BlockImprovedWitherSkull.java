@@ -7,12 +7,18 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockWorldState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMaterialMatcher;
 import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.block.state.pattern.FactoryBlockPattern;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -41,6 +47,24 @@ public class BlockImprovedWitherSkull extends BlockSkull {
     };
 
     @Override
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
+    {
+        int i = 0;
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+
+        if (tileentity instanceof TileEntitySkull)
+        {
+            i = ((TileEntitySkull)tileentity).getSkullType();
+        }
+
+        return new ItemStack(Items.SKULL, 1, i);
+    }
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        checkWitherSpawn(worldIn, pos);
+    }
+    @Override
     protected BlockPattern getWitherPattern()
     {
 
@@ -55,9 +79,9 @@ public class BlockImprovedWitherSkull extends BlockSkull {
         return this.witherPattern;
     }
 
-    @Override
-    public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te) {
-        if (te.getSkullType() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote) {
+
+    public void checkWitherSpawn(World worldIn, BlockPos pos) {
+        if (pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote) {
             BlockPattern blockpattern = this.getWitherPattern();
             BlockPattern.PatternHelper blockpattern$patternhelper = blockpattern.match(worldIn, pos);
 
@@ -75,7 +99,7 @@ public class BlockImprovedWitherSkull extends BlockSkull {
                 }
 
                 BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
-                EntityImprovedWither entityImprovedWither = new EntityImprovedWither(worldIn);
+                EntityWither entityImprovedWither = new EntityWither(worldIn);
                 BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
                 entityImprovedWither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F, 0.0F);
                 entityImprovedWither.renderYawOffset = blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F;

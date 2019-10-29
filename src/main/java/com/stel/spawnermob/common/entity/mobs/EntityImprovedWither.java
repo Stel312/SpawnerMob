@@ -7,4 +7,5 @@ public class EntityImprovedWither extends EntityWither {
     public EntityImprovedWither(World worldIn) {
         super(worldIn);
     }
+
 }

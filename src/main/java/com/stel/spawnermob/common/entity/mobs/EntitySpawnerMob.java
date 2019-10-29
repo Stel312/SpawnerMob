@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -59,6 +60,8 @@ public class EntitySpawnerMob extends EntityCreature {
         this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(1, new EntityAISwimming(this));
     }
+
+
 
     @Override
     protected boolean canDespawn() {

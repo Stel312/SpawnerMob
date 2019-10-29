@@ -1,9 +1,7 @@
 package com.stel.spawnermob;
 
-import com.stel.spawnermob.common.items.SpawnerMobTab;
 import com.stel.spawnermob.common.core.proxy.CommonProxy;
 import com.stel.spawnermob.common.lib.Reference;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -26,12 +24,12 @@ public class spawnermob
     @Mod.Instance
     public static spawnermob instance;
 
-    public static SpawnerMobTab spawnerMobTab;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         proxy.preInit(event);
-        spawnerMobTab = new SpawnerMobTab(CreativeTabs.getNextID(), "Spawner Mob");
+
 
     }
 

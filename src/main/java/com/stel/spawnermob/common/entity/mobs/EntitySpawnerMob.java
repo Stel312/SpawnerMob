@@ -80,7 +80,7 @@ public class EntitySpawnerMob extends EntityCreature {
     }
 
     /**
-     *  if a user right clicks an entity
+     *  if a user right clicks an entity meant for debugging
      * @param player
      * @param hand
      * @return
@@ -142,7 +142,7 @@ public class EntitySpawnerMob extends EntityCreature {
     {
         super.writeEntityToNBT(compound);
         this.mobSpawnerBaseLogic.writeToNBT(compound);
-        if (res != null)
+        if (res != null )
         compound.setString("spawnerEntity", res.toString());
     }
 

@@ -2,8 +2,10 @@ package com.stel.spawnermob.client.core.proxy;
 
 import com.stel.spawnermob.client.model.mob.ModelSpawnerMob;
 import com.stel.spawnermob.client.render.RenderMob;
-import com.stel.spawnermob.common.blocks.BlockImprovedWitherSkull;
 import com.stel.spawnermob.common.core.proxy.CommonProxy;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherLvl1;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherLvl2;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherLvl3;
 import com.stel.spawnermob.common.entity.mobs.EntitySpawnerMob;
 import com.stel.spawnermob.common.lib.Strings;
 import net.minecraft.client.Minecraft;
@@ -35,7 +37,12 @@ public class ClientProxy extends CommonProxy {
 
         RenderingRegistry.registerEntityRenderingHandler(EntitySpawnerMob.class, (IRenderFactory) new RenderMob
                 (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.SpawnerMob));
-
+        RenderingRegistry.registerEntityRenderingHandler(EntityImprovedWitherLvl3.class, (IRenderFactory) new RenderMob
+                (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.ImprovedWitherLvl3));
+        RenderingRegistry.registerEntityRenderingHandler(EntityImprovedWitherLvl2.class, (IRenderFactory) new RenderMob
+                (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.ImprovedWitherLvl2));
+        RenderingRegistry.registerEntityRenderingHandler(EntityImprovedWitherLvl1.class, (IRenderFactory) new RenderMob
+                (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.ImprovedWitherLvl1));
     }
 
     @Override

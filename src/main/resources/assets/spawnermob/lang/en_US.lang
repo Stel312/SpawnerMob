@@ -1,1 +1,5 @@
-itemGroup.Tiny_Trains = Tiny Trains
+
+entity.spawnermob.name= Chaos Spawner
+entity.entityImprovedWitherLvl1= Level 1 Wither
+entity.entityImprovedWitherLvl2= Level 2 Wither
+entity.entityImprovedWitherLvl3= Level 3 Wither

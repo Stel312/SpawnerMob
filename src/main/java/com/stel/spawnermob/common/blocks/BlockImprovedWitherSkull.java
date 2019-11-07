@@ -1,7 +1,10 @@
 package com.stel.spawnermob.common.blocks;
 
 import com.google.common.base.Predicate;
-import com.stel.spawnermob.common.entity.mobs.EntityImprovedWither;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherBase;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherLvl1;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherLvl2;
+import com.stel.spawnermob.common.entity.mobs.EntityImprovedWitherLvl3;
 import com.stel.spawnermob.common.items.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockSkull;
@@ -16,12 +19,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -30,8 +30,9 @@ import javax.annotation.Nullable;
 
 public class BlockImprovedWitherSkull extends BlockSkull {
     private BlockPattern witherPattern;
-
-    public BlockImprovedWitherSkull( String toolClass, int level, float hardness, float resistance, String name)
+    private int witherLvl;
+    EntityImprovedWitherBase entityImprovedWither;
+    BlockImprovedWitherSkull(String toolClass, int level, float hardness, float resistance, String name)
     {
         this.setHarvestLevel(toolClass, level);
         setHardness(hardness);
@@ -42,53 +43,88 @@ public class BlockImprovedWitherSkull extends BlockSkull {
 
     private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = new Predicate<BlockWorldState>() {
         public boolean apply(@Nullable BlockWorldState p_apply_1_) {
-            return p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.SKULL && p_apply_1_.getTileEntity() instanceof TileEntitySkull && ((TileEntitySkull) p_apply_1_.getTileEntity()).getSkullType() == 1;
+            assert p_apply_1_ != null;
+            p_apply_1_.getBlockState();
+            return p_apply_1_.getBlockState().getBlock() == Blocks.SKULL && p_apply_1_.getTileEntity() instanceof TileEntitySkull && ((TileEntitySkull) p_apply_1_.getTileEntity()).getSkullType() == 1;
         }
     };
 
-    @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        int i = 0;
-        TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntitySkull)
-        {
-            i = ((TileEntitySkull)tileentity).getSkullType();
-        }
-
-        return new ItemStack(Items.SKULL, 1, i);
-    }
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         checkWitherSpawn(worldIn, pos);
     }
-    @Override
-    protected BlockPattern getWitherPattern()
+
+    private BlockPattern getWitherPatternLvl1()
     {
 
-        if (this.witherPattern == null) {
             this.witherPattern = FactoryBlockPattern.start().aisle("^+^", "###", "~#~")
                     .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND)))
                     .where('^', IS_WITHER_SKELETON)
                     .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
                     .where('+', BlockWorldState.hasState(BlockStateMatcher.forBlock(ModBlocks.ImprovedWitherSkull))).build();
-        }
+
+        return this.witherPattern;
+    }
+
+    private BlockPattern getWitherPatternLvl2()
+    {
+
+            this.witherPattern = FactoryBlockPattern.start().aisle("+^+", "###", "~#~")
+                    .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND)))
+                    .where('^', IS_WITHER_SKELETON)
+                    .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+                    .where('+', BlockWorldState
+                            .hasState(BlockStateMatcher.forBlock(ModBlocks.ImprovedWitherSkull))).build();
+
+        return this.witherPattern;
+    }
+
+    private BlockPattern getWitherPatternLvl3()
+    {
+            this.witherPattern = FactoryBlockPattern.start().aisle("+++", "###", "~#~")
+                    .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND)))
+                    .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+                    .where('+', BlockWorldState
+                            .hasState(BlockStateMatcher.forBlock(ModBlocks.ImprovedWitherSkull))).build();
 
         return this.witherPattern;
     }
 
 
-    public void checkWitherSpawn(World worldIn, BlockPos pos) {
+    /**
+     * will spawn the new wither entity that will be added
+     * @param worldIn the world where the game checks
+     * @param pos the position of the block
+     */
+    private void checkWitherSpawn(World worldIn, BlockPos pos) {
         if (pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote) {
-            BlockPattern blockpattern = this.getWitherPattern();
+            BlockPattern blockpattern = this.getWitherPatternLvl1();
             BlockPattern.PatternHelper blockpattern$patternhelper = blockpattern.match(worldIn, pos);
+            if (blockpattern$patternhelper != null)
+                witherLvl = 1;
+            if(blockpattern$patternhelper == null)
+            {
+                blockpattern = this.getWitherPatternLvl2();
+                blockpattern$patternhelper = blockpattern.match(worldIn, pos);
+                if (blockpattern$patternhelper != null)
+                    witherLvl = 2;
+            }
+
+            if(blockpattern$patternhelper == null)
+            {
+                blockpattern = this.getWitherPatternLvl3();
+                blockpattern$patternhelper = blockpattern.match(worldIn, pos);
+                if (blockpattern$patternhelper != null)
+                    witherLvl = 3;
+            }
+
 
             if (blockpattern$patternhelper != null) {
                 for (int i = 0; i < 3; ++i) {
                     BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(i, 0, 0);
-                    worldIn.setBlockState(blockworldstate.getPos(), blockworldstate.getBlockState().withProperty(NODROP, Boolean.valueOf(true)), 2);
+                    worldIn.setBlockState(blockworldstate.getPos(), blockworldstate.getBlockState().withProperty(NODROP, Boolean.TRUE), 2);
                 }
 
                 for (int j = 0; j < blockpattern.getPalmLength(); ++j) {
@@ -98,22 +134,25 @@ public class BlockImprovedWitherSkull extends BlockSkull {
                     }
                 }
 
-                BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
-                EntityWither entityImprovedWither = new EntityWither(worldIn);
+                if(witherLvl == 1)
+                    entityImprovedWither = new EntityImprovedWitherLvl1(worldIn);
+                else if (witherLvl == 2)
+                    entityImprovedWither = new EntityImprovedWitherLvl2(worldIn);
+                else if (witherLvl == 3)
+                    entityImprovedWither = new EntityImprovedWitherLvl3(worldIn);
+
+
                 BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
                 entityImprovedWither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F, 0.0F);
                 entityImprovedWither.renderYawOffset = blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F;
-                entityImprovedWither.ignite();
+                if(witherLvl < 2)
+                    entityImprovedWither.ignite();
 
                 for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityImprovedWither.getEntityBoundingBox().grow(50.0D))) {
                     CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp, entityImprovedWither);
                 }
 
                 worldIn.spawnEntity(entityImprovedWither);
-
-                for (int l = 0; l < 120; ++l) {
-                    worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
-                }
 
                 for (int i1 = 0; i1 < blockpattern.getPalmLength(); ++i1) {
                     for (int j1 = 0; j1 < blockpattern.getThumbLength(); ++j1) {

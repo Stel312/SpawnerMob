@@ -1,6 +1,11 @@
 package com.stel.stelschaosmod.common.entity.mobs;
 
+import com.stel.stelschaosmod.common.blocks.ModBlocks;
+import com.stel.stelschaosmod.common.entity.mobs.ai.EntityAIEatRedstone;
+import com.stel.stelschaosmod.common.entity.mobs.ai.EntityAIRedstoneSignal;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.init.Blocks;
@@ -11,11 +16,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityRedfish extends EntityCreature {
-    private int eatRedstoneTimer = 250;
+    //private tick
+    public static final PropertyInteger redstoneSignal = PropertyInteger.create("power", 0, 15);
+    private IBlockState blockStateForRedstone = ModBlocks.RedstoneBlock.getDefaultState().withProperty(redstoneSignal, 15);
     public EntityRedfish(World worldIn) {
         super(worldIn);
-        this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
 
+        this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(9, new EntityAIRedstoneSignal(this, blockStateForRedstone));
+        this.tasks.addTask(2, new EntityAIEatRedstone(this, worldIn));
     }
 
     /**
@@ -25,21 +34,12 @@ public class EntityRedfish extends EntityCreature {
 
     public void onUpdate() {
         super.onUpdate();
-        if (eatRedstoneTimer <= 0 && this.world.getBlockState(EntityRedfish.this.getPosition())
-                .getBlock().equals(Block.getBlockFromName("minecraft:redstone_wire")))
-        {
-            this.world.getBlockState(EntityRedfish.this.getPosition())
-        }
-        if (eatRedstoneTimer <= 0 && this.world.getBlockState(EntityRedfish.this.getPosition())
-                .getBlock().equals(Block.getBlockFromName("minecraft:redstone_wire")))
-        {
+    }
 
-            world.setBlockToAir(EntityRedfish.this.getPosition());
-            eatRedstoneTimer = 250;
-        }
-        else
-            eatRedstoneTimer--;
-        System.out.println(eatRedstoneTimer);
+    public boolean isProvidingPower() {
+
+        return true;
+
     }
 
     @Override
@@ -77,7 +77,7 @@ public class EntityRedfish extends EntityCreature {
     public boolean getCanSpawnHere()
     {
         Block block = this.world.getBlockState(EntityRedfish.this.getPosition()).getBlock();
-        if(block.equals(Block.getBlockFromName("minecraft:redstone_wire")))
+        if(block == Blocks.REDSTONE_WIRE)
             return true;
         return false;
     }

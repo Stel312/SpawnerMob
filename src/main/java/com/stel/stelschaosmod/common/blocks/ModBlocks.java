@@ -13,8 +13,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.util.Objects;
 
 public class ModBlocks {
-    @GameRegistry.ObjectHolder("block_for_redstone")
-    public static Block RedstoneBlock = null;
+    @GameRegistry.ObjectHolder(Reference.MODID + ":block_source")
+    public static Block RedstoneBlock;
     @GameRegistry.ObjectHolder(Reference.MODID + ":" + Strings.BlockImprovedWitherSkull)
     public static Block ImprovedWitherSkull;
 

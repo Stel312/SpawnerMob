@@ -44,7 +44,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityImprovedWitherLvl2.class, (IRenderFactory) new RenderMob
                 (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.ImprovedWitherLvl2));
 
-        RenderingRegistry.registerEntityRenderingHandler(EntityImprovedWitherLvl1.class, (IRenderFactory) new RenderMob
+        RenderingRegistry.registerEntityRenderingHanzdler(EntityImprovedWitherLvl1.class, (IRenderFactory) new RenderMob
                 (Minecraft.getMinecraft().getRenderManager(), new ModelSpawnerMob(), 1, Strings.ImprovedWitherLvl1));*/
 
 

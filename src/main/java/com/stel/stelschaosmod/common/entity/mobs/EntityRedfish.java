@@ -1,6 +1,7 @@
 package com.stel.stelschaosmod.common.entity.mobs;
 
 import com.stel.stelschaosmod.common.blocks.ModBlocks;
+import com.stel.stelschaosmod.common.blocks.SourceBlock;
 import com.stel.stelschaosmod.common.entity.mobs.ai.EntityAIEatRedstone;
 import com.stel.stelschaosmod.common.entity.mobs.ai.EntityAIRedstoneSignal;
 import net.minecraft.block.Block;
@@ -17,13 +18,12 @@ import net.minecraft.world.World;
 
 public class EntityRedfish extends EntityCreature {
     //private tick
-    public static final PropertyInteger redstoneSignal = PropertyInteger.create("power", 0, 15);
-    private IBlockState blockStateForRedstone = ModBlocks.RedstoneBlock.getDefaultState().withProperty(redstoneSignal, 15);
-    public EntityRedfish(World worldIn) {
-        super(worldIn);
 
+  public EntityRedfish(World worldIn) {
+        super(worldIn);
+        //final IBlockState blockStateForRedstone = ModBlocks.RedstoneBlock.getDefaultState().withProperty(SourceBlock.redstoneSignal, 15);
         this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(9, new EntityAIRedstoneSignal(this, blockStateForRedstone));
+        //this.tasks.addTask(9, new EntityAIRedstoneSignal(this, blockStateForRedstone));
         this.tasks.addTask(2, new EntityAIEatRedstone(this, worldIn));
     }
 

@@ -34,7 +34,6 @@ public class EntityAIRedstoneSignal extends EntityAIBase {
             int y = (int)redfish.posY;
             int z = (int)redfish.posZ;
             BlockPos blockPos = new BlockPos(x,y,z);
-
         }
     }
 }

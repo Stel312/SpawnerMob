@@ -1,13 +1,12 @@
 package com.stel.stelschaosmod.common.entity.mobs;
 
 import com.stel.stelschaosmod.common.blocks.ModBlocks;
-import com.stel.stelschaosmod.common.blocks.SourceBlock;
 import com.stel.stelschaosmod.common.entity.mobs.ai.EntityAIEatRedstone;
 import com.stel.stelschaosmod.common.entity.mobs.ai.EntityAIRedstoneSignal;
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -21,10 +20,11 @@ public class EntityRedfish extends EntityCreature {
 
   public EntityRedfish(World worldIn) {
         super(worldIn);
-        //final IBlockState blockStateForRedstone = ModBlocks.RedstoneBlock.getDefaultState().withProperty(SourceBlock.redstoneSignal, 15);
-        this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
-        //this.tasks.addTask(9, new EntityAIRedstoneSignal(this, blockStateForRedstone));
+        final IBlockState blockStateForRedstone = ModBlocks.RedstoneBlock.getDefaultState();
+        this.tasks.addTask(1, new EntityAIWander(this, .25D));
+        this.tasks.addTask(3, new EntityAIRedstoneSignal(this, blockStateForRedstone));
         this.tasks.addTask(2, new EntityAIEatRedstone(this, worldIn));
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0D);
     }
 
     /**

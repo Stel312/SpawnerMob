@@ -1,7 +1,6 @@
 package com.stel.stelschaosmod.common.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.BlockEmptyDrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -12,19 +11,40 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-
 import javax.annotation.Nullable;
+import java.util.Random;
 
-public class SourceBlock extends Block {
-    protected SourceBlock()
+public class SourceBlock extends BlockEmptyDrops {
+    SourceBlock()
     {
         super(Material.AIR);
+        this.setTickRandomly(true);
     }
 
-    public SourceBlock(Material blockMaterialIn, MapColor blockMapColorIn) {
-        super(blockMaterialIn, blockMapColorIn);
+    public SourceBlock(Material blockMaterialIn) {
+        super(blockMaterialIn);
     }
 
+
+    @Override
+    public int tickRate(final World worldIn) {
+        return 1;
+    }
+    @Override
+    public boolean requiresUpdates() {
+        return true;
+    }
+
+    @Override
+    public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
+        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    {
+            worldIn.setBlockToAir(pos);
+    }
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
      * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
@@ -32,7 +52,7 @@ public class SourceBlock extends Block {
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
-        return EnumBlockRenderType.INVISIBLE;
+        return EnumBlockRenderType.MODEL;
     }
 
     @Nullable

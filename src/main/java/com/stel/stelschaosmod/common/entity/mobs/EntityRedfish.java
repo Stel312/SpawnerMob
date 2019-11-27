@@ -25,6 +25,7 @@ public class EntityRedfish extends EntityCreature {
         this.tasks.addTask(3, new EntityAIRedstoneSignal(this, blockStateForRedstone));
         this.tasks.addTask(2, new EntityAIEatRedstone(this, worldIn));
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0D);
+        this.setSize(.65f,.25f);
     }
 
     /**

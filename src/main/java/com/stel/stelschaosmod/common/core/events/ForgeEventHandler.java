@@ -22,7 +22,7 @@ public class ForgeEventHandler {
         event.getRegistry().register(EntityEntryBuilder.create().entity(EntityRedfish.class)
                 .id(new ResourceLocation(Strings.Redfish, Strings.Redfish), 33).name(Strings.Redfish)
                 .tracker(64, 2, false).egg( 0xff0000, 0xf00000)
-                .spawn(EnumCreatureType.CREATURE, 1, 1, 1, ForgeRegistries.BIOMES.getValuesCollection())
+                .spawn(EnumCreatureType.CREATURE, 100, 1, 1, ForgeRegistries.BIOMES.getValuesCollection())
                 .build());
 
         event.getRegistry().register(EntityEntryBuilder.create().entity(EntitySpawnerMob.class)

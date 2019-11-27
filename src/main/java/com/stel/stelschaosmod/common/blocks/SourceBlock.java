@@ -1,9 +1,11 @@
 package com.stel.stelschaosmod.common.blocks;
 
+import com.stel.stelschaosmod.common.entity.mobs.EntityRedfish;
 import net.minecraft.block.BlockEmptyDrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -12,23 +14,28 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class SourceBlock extends BlockEmptyDrops {
     SourceBlock()
     {
-        super(Material.AIR);
-        this.setTickRandomly(true);
+        this(Material.GLASS);
+        setTickRandomly(true);
     }
 
     public SourceBlock(Material blockMaterialIn) {
         super(blockMaterialIn);
+        setTickRandomly(true);
     }
 
-
+    @Override
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        requiresUpdates();
+    }
     @Override
     public int tickRate(final World worldIn) {
-        return 1;
+        return 2;
     }
     @Override
     public boolean requiresUpdates() {
@@ -37,14 +44,27 @@ public class SourceBlock extends BlockEmptyDrops {
 
     @Override
     public void onBlockAdded(final World worldIn, final BlockPos pos, final IBlockState state) {
-        worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+
+        worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
     }
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-            worldIn.setBlockToAir(pos);
+        AxisAlignedBB toCheck = new AxisAlignedBB(pos).grow(0.5D);
+        List<EntityRedfish> list = worldIn.getEntitiesWithinAABB(EntityRedfish.class, toCheck);
+        if (list == null || list.isEmpty()) {
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        } else {
+            worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
+        }
     }
+
+    @Override
+    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        return 15;
+    }
+
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
      * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
@@ -52,7 +72,7 @@ public class SourceBlock extends BlockEmptyDrops {
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
-        return EnumBlockRenderType.MODEL;
+        return EnumBlockRenderType.INVISIBLE;
     }
 
     @Nullable

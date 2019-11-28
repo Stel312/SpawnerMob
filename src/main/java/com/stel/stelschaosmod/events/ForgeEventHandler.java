@@ -2,7 +2,11 @@ package com.stel.stelschaosmod.common.core.events;
 
 import com.stel.stelschaosmod.common.entity.mobs.*;
 import com.stel.stelschaosmod.common.lib.Strings;
+import com.stel.stelschaosmod.entity.EntityRedfish;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
@@ -19,6 +23,7 @@ public class ForgeEventHandler {
 
     @SubscribeEvent
     public static void entityRegistration(RegistryEvent.Register<EntityEntry> event) {
+
         event.getRegistry().register(EntityEntryBuilder.create().entity(EntityRedfish.class)
                 .id(new ResourceLocation(Strings.Redfish, Strings.Redfish), 33).name(Strings.Redfish)
                 .tracker(64, 2, false).egg( 0xff0000, 0xf00000)

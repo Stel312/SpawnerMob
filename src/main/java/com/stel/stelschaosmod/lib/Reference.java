@@ -1,4 +1,4 @@
-package com.stel.stelschaosmod.common.lib;
+package com.stel.stelschaosmod.lib;
 
 public class Reference {
         public static final String MODID = "stelschaosmod";

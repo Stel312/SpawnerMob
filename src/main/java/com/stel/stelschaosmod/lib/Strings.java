@@ -1,4 +1,4 @@
-package com.stel.stelschaosmod.common.lib;
+package com.stel.stelschaosmod.lib;
 
 public class Strings {
     public static final String

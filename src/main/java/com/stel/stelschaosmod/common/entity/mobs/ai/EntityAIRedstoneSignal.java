@@ -33,11 +33,9 @@ public class EntityAIRedstoneSignal extends EntityAIBase {
             int z = (int)redfish.posZ;
             BlockPos blockPos = new BlockPos(x,y,z);
                 final IBlockState cur = redfish.getEntityWorld().getBlockState(blockPos);
-                if(!cur.getBlock().isReplaceable(redfish.getEntityWorld(), blockPos) || cur.getBlock() == blockState.getBlock())
+                if(!cur.getBlock().isReplaceable(redfish.getEntityWorld(), blockPos))
                     return;
-                if (cur.getBlock() == Blocks.REDSTONE_WIRE)
-                    blockPos.up(1);
-                redfish.getEntityWorld().setBlockState(blockPos, blockState, 2 | 4);
+                redfish.getEntityWorld().setBlockState(blockPos, blockState );
         }
     }
 }

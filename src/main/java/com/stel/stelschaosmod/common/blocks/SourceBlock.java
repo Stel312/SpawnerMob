@@ -29,14 +29,12 @@ public class SourceBlock extends BlockEmptyDrops {
         setTickRandomly(true);
     }
 
-    @Override
-    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-        requiresUpdates();
-    }
+
     @Override
     public int tickRate(final World worldIn) {
         return 2;
     }
+
     @Override
     public boolean requiresUpdates() {
         return true;
@@ -53,8 +51,8 @@ public class SourceBlock extends BlockEmptyDrops {
     {
         AxisAlignedBB toCheck = new AxisAlignedBB(pos).grow(0.5D);
         List<EntityRedfish> list = worldIn.getEntitiesWithinAABB(EntityRedfish.class, toCheck);
-        if (list == null || list.isEmpty()) {
-            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        if (list.isEmpty()) {
+            worldIn.setBlockToAir(pos);
         } else {
             worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
         }

@@ -37,21 +37,10 @@ public class EntityRedfish extends EntityCreature {
         super.onUpdate();
     }
 
-    public boolean isProvidingPower() {
-
-        return true;
-
-    }
-
     @Override
     public boolean canDespawn()
     {
         return true;
-    }
-
-    protected boolean canTriggerWalking()
-    {
-        return false;
     }
 
     protected SoundEvent getAmbientSound()
@@ -77,10 +66,7 @@ public class EntityRedfish extends EntityCreature {
     @Override
     public boolean getCanSpawnHere()
     {
-        Block block = this.world.getBlockState(EntityRedfish.this.getPosition()).getBlock();
-        if(block == Blocks.REDSTONE_WIRE)
-            return true;
-        return false;
+        return  this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ)).getBlock() == Blocks.REDSTONE_WIRE;
     }
 
 }

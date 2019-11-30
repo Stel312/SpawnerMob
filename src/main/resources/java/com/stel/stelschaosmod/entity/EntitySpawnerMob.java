@@ -3,15 +3,12 @@ package com.stel.stelschaosmod.entity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.registries.ForgeRegistries;
-
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +41,7 @@ public class EntitySpawnerMob extends CreatureEntity {
         }
     };
 
-    public EntitySpawnerMob(final EntityType<? extends EntitySpawnerMob> entityType, World worldIn) {
+    public EntitySpawnerMob(final EntityType<? extends CreatureEntity> entityType, World worldIn) {
         super(entityType, worldIn);
         //this.worldIn = worldIn;
         //this.canDespawn = canDespawn;

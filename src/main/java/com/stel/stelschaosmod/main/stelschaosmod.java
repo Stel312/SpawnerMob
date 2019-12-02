@@ -11,7 +11,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 @Mod("stelschaosmod")
 public class stelschaosmod {
     public static stelschaosmod instance;
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ProxyClient(), () -> () -> new ProxyServer());
 
 
 

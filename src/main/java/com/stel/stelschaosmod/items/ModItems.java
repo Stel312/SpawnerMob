@@ -8,16 +8,7 @@ public class ModItems
 {
     //public static final Item SKULL = new Item();
     //public static CreativeTabs spawnerMobTab = new SpawnerMobTab(CreativeTabs.getNextID(), Strings.SpawnerMobTab);
-    public static void preinit()
-    {
 
 
-
-    }
-    @SubscribeEvent
-    public static void regiterItems(RegistryEvent.Register<Item> event)
-    {
-
-    }
 
 }

@@ -2,6 +2,7 @@ package com.stel.stelschaosmod.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -15,11 +16,11 @@ import java.util.List;
 import java.util.Random;
 
 public class EntitySpawnerMob extends CreatureEntity {
+
     private boolean canDespawn = true;
     private Random rand = new Random(java.lang.System.currentTimeMillis());
     private final List<EntityType> entities = new ArrayList<EntityType>(ForgeRegistries.ENTITIES.getValues());
-
-    //private World worldIn;
+    private World worldIn;
     private EntityType entityType;
     private BlockPos blockPos;
 
@@ -31,7 +32,7 @@ public class EntitySpawnerMob extends CreatureEntity {
 
         @Override
         public World getWorld() {
-            return this.getWorld();
+            return worldIn;
         }
 
         @Override
@@ -43,21 +44,16 @@ public class EntitySpawnerMob extends CreatureEntity {
 
     public EntitySpawnerMob(final EntityType<? extends CreatureEntity> entityType, World worldIn) {
         super(entityType, worldIn);
-        //this.worldIn = worldIn;
-        //this.canDespawn = canDespawn;
-        //this.tasks.addTask(1, new EntityAIWander(this, 1.0D));
-        this.goalSelector.addGoal(1, new SwimGoal(this));
+        this.worldIn = worldIn;
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
     @Override
     public boolean canDespawn(double distanceToClosestPlayer) {
         return canDespawn;
-    }
-
-    @Override
-    protected void registerAttributes() {
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
 

@@ -23,7 +23,6 @@ public class GoalRedstoneSignal extends Goal {
 
     @Override
     public void tick() {
-
         long tick = redfish.ticksExisted % update;
         if (tick == (long) 0 )
         {
@@ -32,8 +31,6 @@ public class GoalRedstoneSignal extends Goal {
             int z = (int)redfish.posZ;
             BlockPos blockPos = new BlockPos(x,y,z);
                 final BlockState cur = redfish.getEntityWorld().getBlockState(blockPos);
-                //if(!cur.getBlock().isReplaceable(redfish.getEntityWorld().getBlockState(blockPos), blockPos))
-                    //return;
                 redfish.getEntityWorld().setBlockState(blockPos, blockState );
         }
     }

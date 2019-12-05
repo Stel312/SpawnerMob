@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.Model;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
@@ -22,7 +21,7 @@ public class RenderMob<T extends  LivingEntity> extends LivingRenderer<T, Entity
 
     public RenderMob(EntityRendererManager mg, EntityModel model, float scale, String staticTexture)
     {
-        super(mg, (EntityModel<T>) model, scale / 2);
+        super(mg, (EntityModel<T>) model, scale);
         this.model = model;
         this.scale = scale;
         this.texturesSprite = staticTexture;

@@ -1,44 +1,46 @@
 package com.stel.stelschaosmod.entity;
 
+import com.google.common.collect.Sets;
+import com.stel.stelschaosmod.Config;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EntitySpawnerMob extends CreatureEntity {
 
-    private boolean canDespawn = true;
+
     private Random rand = new Random(java.lang.System.currentTimeMillis());
-    private final List<EntityType> entities = new ArrayList<EntityType>(ForgeRegistries.ENTITIES.getValues());
+    private Collection<EntityType<?>> entityTypes = ForgeRegistries.ENTITIES.getValues();
+    private ArrayList<EntityType> entities;
     private World worldIn;
     private EntityType entityType;
-    private BlockPos blockPos;
-
     private AbstractSpawner mobSpawnerLogic = new AbstractSpawner() {
         @Override
-        public void broadcastEvent(int id) {
-
-        }
-
+        public void broadcastEvent(int id) { }
         @Override
         public World getWorld() {
             return worldIn;
         }
-
         @Override
         public BlockPos getSpawnerPosition() {
-            blockPos = EntitySpawnerMob.this.getPosition();
-            return blockPos;
+            return EntitySpawnerMob.this.getPosition();
         }
     };
 
@@ -53,7 +55,7 @@ public class EntitySpawnerMob extends CreatureEntity {
 
     @Override
     public boolean canDespawn(double distanceToClosestPlayer) {
-        return canDespawn;
+        return !EntitySpawnerMob.this.hasCustomName();
     }
 
 
@@ -63,18 +65,22 @@ public class EntitySpawnerMob extends CreatureEntity {
     @Override
     public void tick()
     {
+        super.tick();
         this.mobSpawnerLogic.tick();
-
     }
 
-
+    public boolean canBeLeashedTo(PlayerEntity player) {
+        return true;
+    }
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.mobSpawnerLogic.read(compound);
         if(compound.hasUniqueId("spawnerEntity"))
         {
             String string = compound.getString("spawnerEntity");
-            entityType.setRegistryName(string);
+            ResourceLocation res = new ResourceLocation(string);
+            entityType = ForgeRegistries.ENTITIES.getValue(res);
+            assert entityType != null;
             this.mobSpawnerLogic.setEntityType(entityType);
         }
     }
@@ -86,16 +92,18 @@ public class EntitySpawnerMob extends CreatureEntity {
             compound.putString("spawnerEntity", entityType.toString());
     }
 
-
-
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-            //super.onInitialSpawn(difficultyInstance, entityLivingData);
-            blockPos = EntitySpawnerMob.this.getPosition();
+            filterEntities();
             entityType = entities.get(rand.nextInt(entities.size()));
             mobSpawnerLogic.setEntityType(entityType);
             mobSpawnerLogic.setDelayToMin(1);
-
             return spawnDataIn;
+    }
 
+    private void filterEntities()
+    {
+        Set<String> whitelist = Sets.newHashSet(Config.instance.getSpawnerBlacklist());
+        entityTypes = entityTypes.stream().filter(e -> !whitelist.contains(e.getRegistryName().toString())).collect(Collectors.toList());
+        entities = new ArrayList<>(entityTypes);
     }
 }

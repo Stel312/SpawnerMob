@@ -125,7 +125,7 @@ public class SourceBlock extends Block {
     @Deprecated
     @Override
     public BlockRenderType getRenderType(final BlockState state) {
-        return BlockRenderType.INVISIBLE;
+        return BlockRenderType.MODEL;
     }
 
     @Override

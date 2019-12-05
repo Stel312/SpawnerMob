@@ -22,7 +22,7 @@ public class TypeEntities {
             .create(EntityRedfish::new, EntityClassification.CREATURE)
             .setUpdateInterval(1)
             //.setTrackingRange(80)
-            .size(1,1)
+            .size(.4f,.4f)
             .build(Reference.MODID + ":" + Strings.Redfish)
             .setRegistryName(new ResourceLocation(Reference.MODID, Strings.Redfish));
 }

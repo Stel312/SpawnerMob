@@ -1,9 +1,10 @@
 package com.stel.stelschaosmod.main;
 
 
-import com.stel.stelschaosmod.Config;
 import com.stel.stelschaosmod.entity.EntityRedfish;
 import com.stel.stelschaosmod.entity.EntitySpawnerMob;
+import com.stel.stelschaosmod.entitytypes.TypeEntities;
+import com.stel.stelschaosmod.events.ModFeatures;
 import com.stel.stelschaosmod.lib.Strings;
 import com.stel.stelschaosmod.model.mob.ModelRedfish;
 import com.stel.stelschaosmod.model.mob.ModelSpawnerMob;
@@ -21,8 +22,9 @@ public class stelschaosmod {
     public static stelschaosmod instance;
     public stelschaosmod()
     {
-        Config.init();
+        StelsConfig.init();
         registerEntities();
+
     }
 
 
@@ -32,9 +34,9 @@ public class stelschaosmod {
     private void enqueueIMC(final InterModEnqueueEvent event) { }
 
     public static void registerEntities() {
-        RenderingRegistry.registerEntityRenderingHandler(EntityRedfish.class, EntityRendererManager -> new RenderMob
+        RenderingRegistry.registerEntityRenderingHandler(TypeEntities.redfishEntityType,  new RenderMob
                 (Minecraft.getInstance().getRenderManager(), new ModelRedfish(), .25f, Strings.Redfish));
-        RenderingRegistry.registerEntityRenderingHandler(EntitySpawnerMob.class, EntityRendererManager -> new RenderMob
+        RenderingRegistry.registerEntityRenderingHandler(TypeEntities.spawnerMobEntityType, new RenderMob
                 (Minecraft.getInstance().getRenderManager(), new ModelSpawnerMob(), .75F, Strings.SpawnerMob));
     }
 }

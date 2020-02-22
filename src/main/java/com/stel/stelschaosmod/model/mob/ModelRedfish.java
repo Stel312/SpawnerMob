@@ -1,90 +1,69 @@
 package com.stel.stelschaosmod.model.mob;
 
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.client.renderer.entity.model.SegmentedModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
+
+import java.util.Arrays;
 
 /**
  * ModelSilverfish - Either Mojang or a mod author
  * Created using Tabula 7.0.1
  */
-public class ModelRedfish extends EntityModel {
-    public RendererModel field_78171_a3;
-    public RendererModel field_78169_b3;
-    public RendererModel field_78171_a4;
-    public RendererModel field_78171_a5;
-    public RendererModel field_78169_b1;
-    public RendererModel field_78171_a6;
-    public RendererModel field_78169_b2;
-    public RendererModel field_78171_a1;
-    public RendererModel field_78171_a2;
-    public RendererModel field_78171_a7;
+public class ModelRedfish <T extends Entity>  extends SegmentedModel<T> {
+    private final ModelRenderer[] field_78171_a;
+    private final ModelRenderer[] field_78169_b;
+    private final ImmutableList<ModelRenderer> field_228295_f_;
+    private final float[] zPlacement = new float[7];
+    private static final int[][] SILVERFISH_BOX_LENGTH = new int[][]{{3, 2, 2}, {4, 3, 2}, {6, 4, 3}, {3, 3, 3}, {2, 2, 3}, {2, 1, 2}, {1, 1, 2}};
+    private static final int[][] SILVERFISH_TEXTURE_POSITIONS = new int[][]{{0, 0}, {0, 4}, {0, 9}, {0, 16}, {0, 22}, {11, 0}, {13, 4}};
 
     public ModelRedfish() {
-        this.textureWidth = 64;
-        this.textureHeight = 32;
-        this.field_78171_a7 = new RendererModel(this, 13, 4);
-        this.field_78171_a7.setRotationPoint(0.7766903042793274F, 23.0F, 11.5F);
-        this.field_78171_a7.addBox(-0.5F, 0.0F, -1.0F, 1, 1, 2, 0.0F);
-        this.setRotateAngle(field_78171_a7, 0.0F, -0.7469534277915955F, 0.0F);
-        this.field_78171_a1 = new RendererModel(this, 0, 0);
-        this.field_78171_a1.setRotationPoint(0.0F, 22.0F, -3.5F);
-        this.field_78171_a1.addBox(-1.5F, 0.0F, -1.0F, 3, 2, 2, 0.0F);
-        this.setRotateAngle(field_78171_a1, 0.0F, 0.471238911151886F, 0.0F);
-        this.field_78169_b3 = new RendererModel(this, 20, 18);
-        this.field_78169_b3.setRotationPoint(0.28523990511894226F, 19.0F, -1.5F);
-        this.field_78169_b3.addBox(-3.0F, 0.0F, -1.5F, 6, 5, 2, 0.0F);
-        this.setRotateAngle(field_78169_b3, 0.0F, 0.27992069721221924F, 0.0F);
-        this.field_78171_a6 = new RendererModel(this, 11, 0);
-        this.field_78171_a6.setRotationPoint(1.3328649997711182F, 23.0F, 9.5F);
-        this.field_78171_a6.addBox(-1.0F, 0.0F, -1.0F, 2, 1, 2, 0.0F);
-        this.setRotateAngle(field_78171_a6, 0.0F, -0.44428831338882446F, 0.0F);
-        this.field_78171_a4 = new RendererModel(this, 0, 16);
-        this.field_78171_a4.setRotationPoint(0.6205772757530212F, 21.0F, 4.0F);
-        this.field_78171_a4.addBox(-1.5F, 0.0F, -1.5F, 3, 3, 3, 0.0F);
-        this.setRotateAngle(field_78171_a4, 0.0F, 0.04916318878531456F, 0.0F);
-        this.field_78171_a5 = new RendererModel(this, 0, 22);
-        this.field_78171_a5.setRotationPoint(1.1951626539230347F, 22.0F, 7.0F);
-        this.field_78171_a5.addBox(-1.0F, 0.0F, -1.5F, 2, 2, 3, 0.0F);
-        this.setRotateAngle(field_78171_a5, 0.0F, -0.14558644592761996F, 0.0F);
-        this.field_78169_b2 = new RendererModel(this, 20, 11);
-        this.field_78169_b2.setRotationPoint(1.1951626539230347F, 20.0F, 7.0F);
-        this.field_78169_b2.addBox(-3.0F, 0.0F, -1.5F, 6, 4, 3, 0.0F);
-        this.setRotateAngle(field_78169_b2, 0.0F, -0.14558644592761996F, 0.0F);
-        this.field_78171_a2 = new RendererModel(this, 0, 4);
-        this.field_78171_a2.setRotationPoint(0.28523990511894226F, 21.0F, -1.5F);
-        this.field_78171_a2.addBox(-2.0F, 0.0F, -1.0F, 4, 3, 2, 0.0F);
-        this.setRotateAngle(field_78171_a2, 0.0F, 0.27992069721221924F, 0.0F);
-        this.field_78171_a3 = new RendererModel(this, 0, 9);
-        this.field_78171_a3.setRotationPoint(0.0F, 20.0F, 1.0F);
-        this.field_78171_a3.addBox(-3.0F, 0.0F, -1.5F, 6, 4, 3, 0.0F);
-        this.setRotateAngle(field_78171_a3, 0.0F, 0.09233397245407104F, 0.0F);
-        this.field_78169_b1 = new RendererModel(this, 20, 0);
-        this.field_78169_b1.setRotationPoint(0.0F, 16.0F, 1.0F);
-        this.field_78169_b1.addBox(-5.0F, 0.0F, -1.5F, 10, 8, 3, 0.0F);
-        this.setRotateAngle(field_78169_b1, 0.0F, 0.09233397245407104F, 0.0F);
+        this.field_78171_a = new ModelRenderer[7];
+        float f = -3.5F;
+
+        for (int i = 0; i < this.field_78171_a.length; ++i) {
+            this.field_78171_a[i] = new ModelRenderer(this, SILVERFISH_TEXTURE_POSITIONS[i][0], SILVERFISH_TEXTURE_POSITIONS[i][1]);
+            this.field_78171_a[i].addBox((float) SILVERFISH_BOX_LENGTH[i][0] * -0.5F, 0.0F, (float) SILVERFISH_BOX_LENGTH[i][2] * -0.5F, (float) SILVERFISH_BOX_LENGTH[i][0], (float) SILVERFISH_BOX_LENGTH[i][1], (float) SILVERFISH_BOX_LENGTH[i][2]);
+            this.field_78171_a[i].setRotationPoint(0.0F, (float) (24 - SILVERFISH_BOX_LENGTH[i][1]), f);
+            this.zPlacement[i] = f;
+            if (i < this.field_78171_a.length - 1) {
+                f += (float) (SILVERFISH_BOX_LENGTH[i][2] + SILVERFISH_BOX_LENGTH[i + 1][2]) * 0.5F;
+            }
+        }
+
+        this.field_78169_b = new ModelRenderer[3];
+        this.field_78169_b[0] = new ModelRenderer(this, 20, 0);
+        this.field_78169_b[0].addBox(-5.0F, 0.0F, (float) SILVERFISH_BOX_LENGTH[2][2] * -0.5F, 10.0F, 8.0F, (float) SILVERFISH_BOX_LENGTH[2][2]);
+        this.field_78169_b[0].setRotationPoint(0.0F, 16.0F, this.zPlacement[2]);
+        this.field_78169_b[1] = new ModelRenderer(this, 20, 11);
+        this.field_78169_b[1].addBox(-3.0F, 0.0F, (float) SILVERFISH_BOX_LENGTH[4][2] * -0.5F, 6.0F, 4.0F, (float) SILVERFISH_BOX_LENGTH[4][2]);
+        this.field_78169_b[1].setRotationPoint(0.0F, 20.0F, this.zPlacement[4]);
+        this.field_78169_b[2] = new ModelRenderer(this, 20, 18);
+        this.field_78169_b[2].addBox(-3.0F, 0.0F, (float) SILVERFISH_BOX_LENGTH[4][2] * -0.5F, 6.0F, 5.0F, (float) SILVERFISH_BOX_LENGTH[1][2]);
+        this.field_78169_b[2].setRotationPoint(0.0F, 19.0F, this.zPlacement[1]);
+        ImmutableList.Builder<ModelRenderer> builder = ImmutableList.builder();
+        builder.addAll(Arrays.asList(this.field_78171_a));
+        builder.addAll(Arrays.asList(this.field_78169_b));
+        this.field_228295_f_ = builder.build();
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.field_78171_a7.render(f5);
-        this.field_78171_a1.render(f5);
-        this.field_78169_b3.render(f5);
-        this.field_78171_a6.render(f5);
-        this.field_78171_a4.render(f5);
-        this.field_78171_a5.render(f5);
-        this.field_78169_b2.render(f5);
-        this.field_78171_a2.render(f5);
-        this.field_78171_a3.render(f5);
-        this.field_78169_b1.render(f5);
+    public ImmutableList<ModelRenderer> getParts() {
+        return this.field_228295_f_;
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(RendererModel RendererModel, float x, float y, float z) {
-        RendererModel.rotateAngleX = x;
-        RendererModel.rotateAngleY = y;
-        RendererModel.rotateAngleZ = z;
+    public void setRotationAngles(T p_225597_1_, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
+        for (int i = 0; i < this.field_78171_a.length; ++i) {
+            this.field_78171_a[i].rotateAngleY = MathHelper.cos(p_225597_4_ * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.05F * (float) (1 + Math.abs(i - 2));
+            this.field_78171_a[i].rotationPointX = MathHelper.sin(p_225597_4_ * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.2F * (float) Math.abs(i - 2);
+        }
+
+        this.field_78169_b[0].rotateAngleY = this.field_78171_a[2].rotateAngleY;
+        this.field_78169_b[1].rotateAngleY = this.field_78171_a[4].rotateAngleY;
+        this.field_78169_b[1].rotationPointX = this.field_78171_a[4].rotationPointX;
+        this.field_78169_b[2].rotateAngleY = this.field_78171_a[1].rotateAngleY;
+        this.field_78169_b[2].rotationPointX = this.field_78171_a[1].rotationPointX;
     }
 }

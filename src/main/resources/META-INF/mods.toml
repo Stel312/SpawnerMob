@@ -14,7 +14,7 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 # The modid of the mod
 modId="stelschaosmod" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="0.1" #mandatory
+version="0.1.2" #mandatory
  # A display name for the mod
 displayName="Stels Chaos Mod" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
@@ -26,7 +26,7 @@ logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
 credits="Thanks for this example mod goes to Java" #optional
 # A text field displayed in the mod UI
-authors="Love, Cheese and small house plants" #optional
+authors="AbelsClone" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 This is a long form description of the mod. You can write whatever you want here
@@ -42,7 +42,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[28,)" #mandatory
+    versionRange="[31,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -51,6 +51,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
 [[dependencies.stelschaosmod]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4]"
+    versionRange="[1.15.2]"
     ordering="NONE"
     side="BOTH"

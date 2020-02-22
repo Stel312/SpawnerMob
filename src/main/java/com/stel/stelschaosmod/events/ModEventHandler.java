@@ -29,14 +29,11 @@ public class ModEventHandler {
         event.getRegistry().registerAll(TypeEntities.redfishEntityType,
                 TypeEntities.spawnerMobEntityType);
     }
+
     @SubscribeEvent
     public static void registerSpawn(final ModConfig.Loading event) {
-
         Collection<Biome> biomes = ForgeRegistries.BIOMES.getValues();
-
-        entry = new Biome.SpawnListEntry(TypeEntities.redfishEntityType,10000,1,1);
-        biomes.stream().map(biome -> biome.getSpawns(EntityClassification.CREATURE)).forEach(list -> list.add(entry));
-        entry = new Biome.SpawnListEntry(TypeEntities.spawnerMobEntityType,10,1,1);
+        entry = new Biome.SpawnListEntry(TypeEntities.spawnerMobEntityType,1,1,1);
         biomes.stream().map(biome -> biome.getSpawns(EntityClassification.CREATURE)).forEach(list -> list.add(entry));
 
     }
@@ -46,17 +43,15 @@ public class ModEventHandler {
         event.getRegistry().registerAll(
                 new SpawnEggItem(TypeEntities.redfishEntityType, 0xFF0000, 0x0F0000,
                         new Item.Properties().group(ItemGroup.MISC))
-                        .setRegistryName(new ResourceLocation(Reference.MODID, Strings.Redfish + "_egg")),
-                new SpawnEggItem(TypeEntities.spawnerMobEntityType, 0x000000, 0xFFFFFF,
+                        .setRegistryName(Reference.MODID + ":"  + Strings.Redfish + "_egg"),
+               new SpawnEggItem(TypeEntities.spawnerMobEntityType, 0x000000, 0xFFFFFF,
                         new Item.Properties().group(ItemGroup.MISC))
-                        .setRegistryName(new ResourceLocation(Reference.MODID, Strings.SpawnerMob + "_egg")));
+                        .setRegistryName(Reference.MODID + ":" + Strings.SpawnerMob + "_egg"));
     }
 
     @SubscribeEvent
-    public static void registerBlock(RegistryEvent.Register<Block> event)
-    {
+    public static void registerBlock(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(new SourceBlock()
                 .setRegistryName(new ResourceLocation(Reference.MODID, Strings.BlockSourceBlock)));
     }
-
 }

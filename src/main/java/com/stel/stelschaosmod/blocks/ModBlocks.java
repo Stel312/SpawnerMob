@@ -10,4 +10,3 @@ public class ModBlocks {
     @ObjectHolder(Reference.MODID + ":"+  Strings.BlockSourceBlock)
     public static Block RedstoneBlock = null;
 }
-

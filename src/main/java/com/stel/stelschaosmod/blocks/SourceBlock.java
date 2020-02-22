@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,8 +20,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -50,7 +47,7 @@ public class SourceBlock extends Block {
         worldIn.getPendingBlockTicks().scheduleTick(pos, this, tickRate(worldIn));
     }
 
-    @Override
+    //@Override
     public void tick(final BlockState state, final World worldIn, final BlockPos pos, final Random random)
     {
         AxisAlignedBB toCheck = new AxisAlignedBB(pos).grow(0.5D);
@@ -87,20 +84,15 @@ public class SourceBlock extends Block {
         return false;
     }
 
-    @Override
-    public boolean isSolid(final BlockState state) {
-        return false;
-    }
+    //@Override
+    //public boolean isSolid(final BlockState state) {
+    //    return false;
+    //}
 
     @Override
     public ItemStack getItem(final IBlockReader worldIn, final BlockPos pos, final BlockState state) {
         return ItemStack.EMPTY;
     }
-
-//	@Override
-//	public boolean isCollidable(BlockState state) {
-//		return false;
-//	}
 
     @Override
     public boolean isReplaceable(final BlockState state, final BlockItemUseContext useContext) {
@@ -119,20 +111,12 @@ public class SourceBlock extends Block {
         return getDefaultState();
     }
 
-    /**
-     * @deprecated
-     */
     @Deprecated
     @Override
     public BlockRenderType getRenderType(final BlockState state) {
-        return BlockRenderType.MODEL;
+        return BlockRenderType.INVISIBLE;
     }
 
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 
     @Override
     public void onFallenUpon(final World worldIn, final BlockPos pos, final Entity entityIn, final float fallDistance) {

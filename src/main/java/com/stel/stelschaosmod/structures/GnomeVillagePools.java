@@ -14,8 +14,8 @@ import net.minecraft.world.gen.feature.template.*;
 
 public class GnomeVillagePools {
     public static void init() {
-
-
+    }
+    static {
             ImmutableList<StructureProcessor> immutablelist = ImmutableList.of(new RuleStructureProcessor(
                     ImmutableList.of(new RuleEntry(new RandomBlockMatchRuleTest(Blocks.COBBLESTONE, 0.8F),
                                     AlwaysTrueRuleTest.INSTANCE, Blocks.MOSSY_COBBLESTONE.getDefaultState()),

@@ -10,7 +10,6 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
@@ -27,6 +26,7 @@ public class GnomeStructure extends Structure<VillageConfig> {
     protected ChunkPos getStartPositionForPosition(ChunkGenerator<?> chunkGenerator, Random random, int x, int z, int spacingOffsetsX, int spacingOffsetsZ) {
         int i = chunkGenerator.getSettings().getVillageDistance();
         int j = chunkGenerator.getSettings().getVillageSeparation();
+        i = j = 1;
         int k = x + i * spacingOffsetsX;
         int l = z + i * spacingOffsetsZ;
         int i1 = k < 0 ? k - i + 1 : k;
@@ -54,7 +54,7 @@ public class GnomeStructure extends Structure<VillageConfig> {
 
     @Override
     public String getStructureName() {
-        return "gnomevillage";
+        return Reference.MODID +":gnomevillage";
     }
 
     @Override
@@ -69,9 +69,9 @@ public class GnomeStructure extends Structure<VillageConfig> {
         }
 
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
-            VillageConfig villageconfig = generator.getStructureConfig(biomeIn, Feature.VILLAGE);
+            VillageConfig villageconfig = generator.getStructureConfig(biomeIn, ModFeatures.GnomeVillages);
             BlockPos blockpos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
-            VillagePieces.func_214838_a(generator, templateManagerIn, blockpos, this.components, this.rand, villageconfig);
+            GnomeVillagePieces.func_214838_a(generator, templateManagerIn, blockpos, this.components, this.rand, villageconfig);
             this.recalculateStructureSize();
         }
     }

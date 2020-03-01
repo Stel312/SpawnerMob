@@ -7,8 +7,10 @@ import com.stel.stelschaosmod.structures.GnomeVillagePools;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
@@ -28,21 +30,26 @@ import java.util.Locale;
 public class ModFeatures {
 
     public static Structure<VillageConfig> GnomeVillages = new GnomeStructure(VillageConfig::deserialize);
-    public static IStructurePieceType GVP = GnomeVillagePieces.GnomeVillage::new;
+    public static IStructurePieceType GVP = GnomeVillagePieces.Village::new;
 
     @SubscribeEvent
-    public void setup(final FMLCommonSetupEvent event) {
-        GnomeVillagePools.init();
+    public static void setup(final FMLCommonSetupEvent event) {
+
         for (Biome biome : ForgeRegistries.BIOMES) {
-            biome.addStructure(GnomeVillages.withConfiguration(new VillageConfig("village/gnome/houses", 6)));
-            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
-                    GnomeVillages.withConfiguration(new VillageConfig("village/gnome/houses", 6))
-                            .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            //if (biome == Biomes.DARK_FOREST) {
+            VillageConfig villageConfig = new VillageConfig(Reference.MODID + ":village/gnome/houses", 6);
+                biome.addStructure(GnomeVillages.withConfiguration(villageConfig));
+                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
+                        GnomeVillages.withConfiguration(villageConfig)
+                                .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+
+            //}
         }
     }
 
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
+        GnomeVillagePools.init();
         registerFeature(event.getRegistry(), GnomeVillages, "gnomevillage");
         register(GVP, "GVP");
     }
@@ -57,5 +64,4 @@ public class ModFeatures {
         entry.setRegistryName(r);
         registry.register(entry);
     }
-
 }

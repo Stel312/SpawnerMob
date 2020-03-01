@@ -31,19 +31,20 @@ public class ModFeatures {
 
     public static Structure<VillageConfig> GnomeVillages = new GnomeStructure(VillageConfig::deserialize);
     public static IStructurePieceType GVP = GnomeVillagePieces.Village::new;
-
+    private static VillageConfig villageConfig = new VillageConfig(Reference.MODID + ":village/gnome/town_center", 6);
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event) {
 
         for (Biome biome : ForgeRegistries.BIOMES) {
-            //if (biome == Biomes.DARK_FOREST) {
-            VillageConfig villageConfig = new VillageConfig(Reference.MODID + ":village/gnome/houses", 6);
-                biome.addStructure(GnomeVillages.withConfiguration(villageConfig));
-                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
-                        GnomeVillages.withConfiguration(villageConfig)
-                                .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
+                    GnomeVillages.withConfiguration(villageConfig)
+                            .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            if (biome == Biomes.DARK_FOREST_HILLS || biome == Biomes.DARK_FOREST) {
 
-            //}
+                biome.addStructure(GnomeVillages.withConfiguration(villageConfig));
+
+
+            }
         }
     }
 

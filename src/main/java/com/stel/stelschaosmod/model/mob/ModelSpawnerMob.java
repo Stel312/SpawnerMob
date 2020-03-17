@@ -91,7 +91,7 @@ public class ModelSpawnerMob  <T extends Entity> extends EntityModel<T>{
     }
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder iVertexBuilder, int i, int i1, float v, float v1, float v2, float v3) {
+    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 
     }
 }

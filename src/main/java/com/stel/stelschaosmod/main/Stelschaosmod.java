@@ -2,11 +2,16 @@ package com.stel.stelschaosmod.main;
 
 
 import com.stel.stelschaosmod.entitytypes.TypeEntities;
+import com.stel.stelschaosmod.events.EntityRegisterHandler;
+import com.stel.stelschaosmod.events.ForgeEventHandler;
+import com.stel.stelschaosmod.events.ModFeatures;
 import com.stel.stelschaosmod.lib.Strings;
 import com.stel.stelschaosmod.model.mob.ModelRedfish;
 import com.stel.stelschaosmod.model.mob.ModelSpawnerMob;
 import com.stel.stelschaosmod.render.RenderMob;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -24,7 +29,14 @@ public class Stelschaosmod {
     {
         StelsConfig.init();
         registerEntities();
+        MinecraftForge.EVENT_BUS.register(this);
 
+        //Client
+        MinecraftForge.EVENT_BUS.register(new EntityRegisterHandler());
+        MinecraftForge.EVENT_BUS.register(new ModFeatures());
+
+        // Forge
+        MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
     }
 
 

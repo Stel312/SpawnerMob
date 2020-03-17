@@ -26,7 +26,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.Locale;
 
-@Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModFeatures {
 
     public static Structure<VillageConfig> GnomeVillages = new GnomeStructure(VillageConfig::deserialize);

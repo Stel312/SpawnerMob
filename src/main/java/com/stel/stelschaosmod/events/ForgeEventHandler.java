@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 
-@Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventHandler {
     private static Random rand = new Random(java.lang.System.currentTimeMillis());
     private static final ArrayList<Block> redstoneBlocks = new ArrayList<>(Arrays.asList(Blocks.REDSTONE_WIRE,

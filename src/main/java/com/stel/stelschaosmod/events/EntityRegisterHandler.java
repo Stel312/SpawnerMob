@@ -20,8 +20,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collection;
 
-@Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEventHandler {
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+public class EntityRegisterHandler {
     private static Biome.SpawnListEntry entry = null;
 
     @SubscribeEvent

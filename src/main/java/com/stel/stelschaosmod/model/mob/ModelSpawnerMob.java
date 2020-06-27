@@ -3,6 +3,7 @@ package com.stel.stelschaosmod.model.mob;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
@@ -10,7 +11,7 @@ import net.minecraft.entity.Entity;
  * ModelSpawnerMob - Undefined
  * Created using Tabula 7.0.1
  */
-public class ModelSpawnerMob  <T extends Entity> extends EntityModel<T>{
+public class ModelSpawnerMob  <T extends Entity> extends SegmentedModel<T> {
     public ModelRenderer shape1;
     public ModelRenderer shape2;
     public ModelRenderer shape3;
@@ -93,5 +94,10 @@ public class ModelSpawnerMob  <T extends Entity> extends EntityModel<T>{
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 
+    }
+
+    @Override
+    public Iterable<ModelRenderer> getParts() {
+        return null;
     }
 }

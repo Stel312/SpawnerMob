@@ -11,7 +11,6 @@ import com.stel.stelschaosmod.model.mob.ModelSpawnerMob;
 import com.stel.stelschaosmod.render.RenderMob;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -47,8 +46,10 @@ public class Stelschaosmod {
 
     public static void registerEntities() {
         RenderingRegistry.registerEntityRenderingHandler(TypeEntities.redfishEntityType,  new RenderMob
-                (Minecraft.getInstance().getRenderManager(), new ModelRedfish(), .25f, Strings.Redfish));
+                (Minecraft.getInstance().getRenderManager(), new ModelRedfish<>(), .25f, Strings.Redfish));
         RenderingRegistry.registerEntityRenderingHandler(TypeEntities.spawnerMobEntityType, new RenderMob
-                (Minecraft.getInstance().getRenderManager(), new ModelSpawnerMob(), .75F, Strings.SpawnerMob));
+                (Minecraft.getInstance().getRenderManager(), new ModelSpawnerMob<>(), .75F, Strings.SpawnerMob));
+        RenderingRegistry.registerEntityRenderingHandler(TypeEntities.gnomeEntityType, new RenderMob
+                (Minecraft.getInstance().getRenderManager(), new ModelSpawnerMob<>(), .75F, Strings.Gnome));
     }
 }

@@ -9,5 +9,6 @@ public class Strings {
             ImprovedWitherLvl1 = "improvedwitherLvl1",
             ImprovedWitherLvl2 = "improvedwitherLvl2",
             ImprovedWitherLvl3 = "improvedwitherLvl3",
-            Redfish = "redfish";
+            Redfish = "redfish",
+            Gnome = "gnome";
 }

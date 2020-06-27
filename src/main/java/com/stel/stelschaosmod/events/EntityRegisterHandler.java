@@ -27,7 +27,7 @@ public class EntityRegisterHandler {
     @SubscribeEvent
     public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
         event.getRegistry().registerAll(TypeEntities.redfishEntityType,
-                TypeEntities.spawnerMobEntityType);
+                TypeEntities.spawnerMobEntityType, TypeEntities.gnomeEntityType);
     }
 
     @SubscribeEvent
@@ -46,7 +46,10 @@ public class EntityRegisterHandler {
                         .setRegistryName(Reference.MODID + ":"  + Strings.Redfish + "_egg"),
                new SpawnEggItem(TypeEntities.spawnerMobEntityType, 0x000000, 0xFFFFFF,
                         new Item.Properties().group(ItemGroup.MISC))
-                        .setRegistryName(Reference.MODID + ":" + Strings.SpawnerMob + "_egg"));
+                        .setRegistryName(Reference.MODID + ":" + Strings.SpawnerMob + "_egg"),
+                new SpawnEggItem(TypeEntities.gnomeEntityType, 0x000FF0, 0xF00000,
+                        new Item.Properties().group(ItemGroup.MISC))
+                        .setRegistryName(Reference.MODID + ":" + Strings.Gnome + "_egg"));
     }
 
     @SubscribeEvent

@@ -24,6 +24,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -34,16 +37,15 @@ public class ModFeatures {
     private static VillageConfig villageConfig = new VillageConfig(Reference.MODID + ":village/gnome/town_center", 6);
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event) {
-
+        List<Structure<?>> village = new ArrayList(Feature.ILLAGER_STRUCTURES);
+        village.add(GnomeVillages);
+        Feature.ILLAGER_STRUCTURES = village;
         for (Biome biome : ForgeRegistries.BIOMES) {
             biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES,
                     GnomeVillages.withConfiguration(villageConfig)
                             .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
             if (biome == Biomes.DARK_FOREST_HILLS || biome == Biomes.DARK_FOREST) {
-
                 biome.addStructure(GnomeVillages.withConfiguration(villageConfig));
-
-
             }
         }
     }
